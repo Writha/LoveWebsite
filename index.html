@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love ❤️</title>
+    <style>
+        /* 🌸 Darker Pink Background with Floating Hearts Working */
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #ff4d6d; /* Darker pink */
+            color: white;
+            overflow: hidden; /* Prevents scrolling */
+            position: relative;
+        }
+
+        /* 🌟 Make Text Stand Out */
+        h2, p {
+            background: rgba(0, 0, 0, 0.3); /* Light black background */
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* ✨ Center Everything */
+        #nameScreen, #animationScreen {
+            display: none;
+            position: relative;
+            z-index: 10; /* Keeps text above floating hearts */
+        }
+
+        /* 🎭 Emoji Styling */
+        .face {
+            font-size: 80px;
+            position: absolute;
+            opacity: 0;
+            transition: transform 2s ease-in-out, opacity 1s ease-in-out;
+        }
+
+        #sadFace {
+            left: 30%;
+            top: 200px;
+            opacity: 1;
+        }
+
+        #happyFace, #otherFace, #kissingFaces {
+            left: 30%;
+            top: 200px;
+        }
+
+        #otherFace { right: 30%; }
+        #kissingFaces { left: 42%; font-size: 90px; }
+
+        /* Move Faces Together */
+        @keyframes moveTogether {
+            0% { left: 30%; right: 30%; opacity: 1; }
+            100% { left: 40%; right: 42%; opacity: 1; }
+        }
+
+        /* ❤️ "I Love You" Typing Effect */
+        #loveMessage {
+            display: none;
+            font-size: 30px;
+            font-weight: bold;
+            color: #ff99cc;
+            text-shadow: 3px 3px 15px red;
+            position: absolute;
+            top: 400px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-right: 3px solid white;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(10, end), blink 0.8s infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* 💖 Floating Hearts Animation */
+        @keyframes floatingHearts {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+
+        .heart {
+            position: absolute;
+            bottom: 0;
+            font-size: 30px;
+            color: red;
+            animation: floatingHearts 5s linear infinite;
+            z-index: 5; /* Ensures hearts float behind text */
+        }
+
+        /* 💖 Buttons Styling */
+        button {
+            background-color: #ff1a40;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #cc1433;
+        }
+
+        /* ✨ Restart Button */
+        #restart {
+            display: none;
+        }
+
+        /* 📱 Mobile-Friendly Design */
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 20px;
+            }
+            .face {
+                font-size: 50px;
+            }
+            #loveMessage {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Step 1: Name Input Screen -->
+    <div id="nameScreen">
+        <h2>What's your name?</h2>
+        <input type="text" id="nameInput" placeholder="Type your name">
+        <button onclick="checkName()">Enter</button>
+        <p id="message"></p>
+    </div>
+
+    <!-- Step 2: Animation Screen -->
+    <div id="animationScreen">
+        <h2 id="welcomeMessage"></h2>
+
+        <!-- Emoji Faces -->
+        <div id="sadFace" class="face">😞</div>
+        <div id="happyFace" class="face">😁</div>
+        <div id="otherFace" class="face">🙂</div>
+        <div id="kissingFaces" class="face">😘💏</div>
+
+        <p id="loveMessage">I love you! ❤️</p>
+
+        <!-- Restart Button -->
+        <button id="restart" onclick="restartAnimation()">Restart</button>
+    </div>
+
+    <!-- Step 3: Romantic Music -->
+    <audio id="bgMusic" loop>
+        <source src="romantic-song.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.getElementById("nameScreen").style.display = "block"; // Show name input first
+
+        function checkName() {
+            let name = document.getElementById("nameInput").value.trim();
+            let message = document.getElementById("message");
+
+            if (name.toLowerCase() === "michael") {
+                message.innerHTML = "Welcome, she's been waiting for you. ❤️";
+                setTimeout(startAnimation, 2000); // Start animation after 2 seconds
+            } else {
+                message.innerHTML = "Sorry, you're not the one she's waiting for. 😢";
+            }
+        }
+
+        function startAnimation() {
+            document.getElementById("nameScreen").style.display = "none";
+            document.getElementById("animationScreen").style.display = "block";
+            document.getElementById("welcomeMessage").innerText = "Michael! 💖";
+
+            setTimeout(() => {
+                document.getElementById("sadFace").style.opacity = "0";
+                document.getElementById("happyFace").style.opacity = "1";
+            }, 2000); // Change to happy face
+
+            setTimeout(() => {
+                document.getElementById("otherFace").style.opacity = "1";
+            }, 3000); // Show the second face
+
+            setTimeout(() => {
+                document.getElementById("happyFace").style.animation = "moveTogether 2s forwards";
+                document.getElementById("otherFace").style.animation = "moveTogether 2s forwards";
+            }, 4000); // Move faces closer
+
+            setTimeout(() => {
+                document.getElementById("happyFace").style.opacity = "0";
+                document.getElementById("otherFace").style.opacity = "0";
+                document.getElementById("kissingFaces").style.opacity = "1";
+            }, 6000); // Show kissing faces
+
+            setTimeout(() => {
+                document.getElementById("loveMessage").style.display = "block";
+            }, 8000); // Show "I love You So Much" text
+
+            setTimeout(() => {
+                document.getElementById("restart").style.display = "inline-block";
+            }, 9000); // Show Restart Button
+
+            document.getElementById("bgMusic").play(); // Start romantic music
+        }
+
+        function restartAnimation() {
+            location.reload(); // Reload page to restart
+        }
+
+        function createHeart() {
+            let heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.classList.add("heart");
+            document.body.appendChild(heart);
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
+    
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
